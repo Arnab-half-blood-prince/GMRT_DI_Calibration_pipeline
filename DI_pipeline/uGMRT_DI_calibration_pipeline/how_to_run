@@ -1,0 +1,23 @@
+1. Go to GMRT_pipeline_work.py file 
+2. In the pipepath give the path of the pipeline (where the py files are present) (line 80) 
+
+
+So change this accordingly. 
+
+After that you are good to go. 
+
+Copy your data into a folder.
+
+Go to that folder 
+Open CASA
+then  $execfile('path/GMRT_pipeline_work.py')
+
+in the file name give the ms file name without extension (eg. if file name is GWB.ms then give only GWB) 
+
+then yes for hanning smoothing and yes for saving the model data column. 
+
+then it will start working 
+
+In the end you will get a weblog where all the relevant images are stored and the ms will have a calibrated data column. 
+Split the calibrated data column of the target and proceed to imaging. 
+

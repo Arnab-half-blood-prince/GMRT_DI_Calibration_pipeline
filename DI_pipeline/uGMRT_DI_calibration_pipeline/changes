@@ -1,0 +1,19 @@
+# Arnab has modified the pipeline. Initially started by Nirupam Roy (IISc Bangalore).  
+
+#### Changes done by Arnab #####
+
+In GMRT_startup.py 
+
+Here I introduced some functions so that it will take the ms_active name from the terminal and decide the calibrator and target scans on its own. No need to provide by hand from now.
+
+
+Some other important changes 
+
+1. I introduced some channel ranges to do the gaincal (central good channels) and bandpass (leaving the edge channels). This choice will be done automatically by the pipeline based on channel information of the ms. 
+
+2. I introduced tfcrop. In CASA 5.0 and higher version, tfcrop task has sumthreshold method included. AOFLAGGER use this statistics. It is in developemnt phase. I tried to choose  some parameters based on experience. So, it needs to be tested with more data set.
+
+3. I incorporated the solmode-L1R in gaincal task. This is incorporated in AIPS++ and now included in latest version of CASA 5.0 and higher. This mode in general gives better results as simple least-square minimization does not converge to good solution all the time.  Check the the CASA documentation for more details. 
+
+
+
