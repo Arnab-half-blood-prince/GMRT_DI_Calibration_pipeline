@@ -1,0 +1,3 @@
+The image created after several rounds of self-cal and imaging. 
+There are 6 pointings. So it is a mosaic of these pointings. 
+The mosaic is being done with montage package after correcting for uGMRT primary beam and weighted with the square of the primary beam
