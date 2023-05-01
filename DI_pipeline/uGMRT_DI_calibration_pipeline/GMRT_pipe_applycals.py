@@ -36,16 +36,18 @@ logprint ("Starting GMRT_pipe_applycals.py", logfileout='logs/applycals.log')
 time_list=runtiming('applycals', 'start')
 QA2_applycals='Pass'
 
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-myinitialflags = flagdata()
-logprint ("Finished flags summary before final applycal", logfileout='logs/applycals.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+    default('flagdata')
+    vis=ms_active
+    mode='summary'
+    spwchan=True
+    spwcorr=True
+    basecnt=True
+    action='calculate'
+    savepars=False
+    myinitialflags = flagdata()
+    logprint ("Finished flags summary before final applycal", logfileout='logs/applycals.log')
 
 
 FinalGainTables=copy.copy(priorcals)
@@ -73,17 +75,18 @@ applymode='calflagstrict'
 flagbackup=True
 applycal()
 
-
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-myinitialflags = flagdata()
-logprint ("Finished flags summary after final applycal", logfileout='logs/applycals.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+    default('flagdata')
+    vis=ms_active
+    mode='summary'
+    spwchan=True
+    spwcorr=True
+    basecnt=True
+    action='calculate'
+    savepars=False
+    myinitialflags = flagdata()
+    logprint ("Finished flags summary after final applycal", logfileout='logs/applycals.log')
 
 
 # Check calibrated data for more flagging

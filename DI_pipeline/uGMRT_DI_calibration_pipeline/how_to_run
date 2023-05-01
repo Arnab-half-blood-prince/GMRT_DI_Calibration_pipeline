@@ -1,12 +1,14 @@
 1. Go to GMRT_pipeline_work.py file 
 2. In the pipepath give the path of the pipeline (where the py files are present) (line 80) 
-
-
 So change this accordingly. 
 
 After that you are good to go. 
 
 Copy your data into a folder.
+
+####################################################################################################################
+            If you want to provide direct Visibility, make sure it is created using importuvfits task
+####################################################################################################################
 
 Go to that folder 
 Open CASA

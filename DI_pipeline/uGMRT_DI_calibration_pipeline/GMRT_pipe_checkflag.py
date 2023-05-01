@@ -80,23 +80,24 @@ flagdata(vis=ms_active,mode="extend",spw=flagspw,field=checkflagfields,datacolum
 # Until we know what the QA criteria are for this script, leave QA2
 # set score to "Pass".
 
-
-# Now report statistics after initial flagging 
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-afterflags = flagdata()
-#clearstat()
-logprint ("final flags summary", logfileout='logs/checkflag.log')
-
-after_total = afterflags['total']
-after_flagged = afterflags['flagged']
-logprint ("After flagging flagged fraction = "+str(after_flagged/after_total), logfileout='logs/checkflag.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+	# Now report statistics after initial flagging 
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	afterflags = flagdata()
+	#clearstat()
+	logprint ("final flags summary", logfileout='logs/checkflag.log')
+	
+	after_total = afterflags['total']
+	after_flagged = afterflags['flagged']
+	logprint ("After flagging flagged fraction = "+str(after_flagged/after_total), logfileout='logs/checkflag.log')
 
 
 
