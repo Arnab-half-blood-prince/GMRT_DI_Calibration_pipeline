@@ -356,12 +356,13 @@ wlog.write('</tr>\n')
 wlog.write('</table>\n')
 wlog.write('<br>\n')
 wlog.write('<hr>\n')
-wlog.write('<br>Fraction of zeroes: '+str(zero_flagged/afterzero_total)+' \n')
-wlog.write('<br>Total fraction of on-source data flagged before calibration (NB: expect approx. 0.1 from flagging of end channels): '+str(frac_flagged_on_source1)+' \n')
-try:
-    wlog.write('<br>Final fraction of on-source data flagged: '+str(frac_flagged_on_source2)+' \n')
-except:
-    wlog.write('<br>Final fraction of on-source data flagged not available\n')
+if not Pipeline_Fast:
+    wlog.write('<br>Fraction of zeroes: '+str(zero_flagged/afterzero_total)+' \n')
+    wlog.write('<br>Total fraction of on-source data flagged before calibration (NB: expect approx. 0.1 from flagging of end channels): '+str(frac_flagged_on_source1)+' \n')
+    try:
+        wlog.write('<br>Final fraction of on-source data flagged: '+str(frac_flagged_on_source2)+' \n')
+    except:
+        wlog.write('<br>Final fraction of on-source data flagged not available\n')
 wlog.write('<br>QA2 scores for each step of pipeline: <a href="./QA2_scores.txt" type="text/plain" target="_blank">link</a>\n')
 wlog.write('<br>Overall QA2 score: '+QA2_pipeline+' \n')
 if (missingScans > 0):
