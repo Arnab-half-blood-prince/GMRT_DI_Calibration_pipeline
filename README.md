@@ -7,7 +7,7 @@ The relevant images for different data sets are also uploaded in the test folder
 
 **If you use it and find any problem kindly let me know. Any suggestions regarding improvements of the pipeline is welcome.**
 
-The direction-dependent calibration for uGMRT wide-band data is a ongoing work and not finished yet.
+The direction-dependent calibration for uGMRT wide-band data is an ongoing work and not finished yet.
 
 Contact: arnab.phy.personal@gmail.com
 
@@ -61,3 +61,8 @@ execfile(pipepath+'GMRT_pipe_testBPdcals.py')
 In Future I will try to make it better so one can provide the **Pipeline_working.txt** as a input while running the pipeline again.
 
 Contact: mangla.sarvesh@gmail.com
+
+# Developer 
+Arnab Chakraborty (arnab.phy.personal@gmail.com) -- post-doc at McGill University.
+
+Sarvesh Mangala (mangla.sarvesh@gmail.com) -- PhD at IIT Indore.
