@@ -91,22 +91,24 @@ logprint ("Flag column saved to "+versionname, logfileout='logs/targetflag.log')
 
 # calculate final flag statistics
 
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-final_flags = flagdata()
-
-frac_flagged_on_source2 = 1.0-((start_total-final_flags['flagged'])/init_on_source_vis)
-
-logprint ("Final fraction of on-source data flagged = "+str(frac_flagged_on_source2), logfileout='logs/targetflag.log')
-
-if (frac_flagged_on_source2 >= 0.6):
-    QA2_targetflag='Fail'
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	final_flags = flagdata()
+	
+	frac_flagged_on_source2 = 1.0-((start_total-final_flags['flagged'])/init_on_source_vis)
+	
+	logprint ("Final fraction of on-source data flagged = "+str(frac_flagged_on_source2), logfileout='logs/targetflag.log')
+	
+	if (frac_flagged_on_source2 >= 0.6):
+	    QA2_targetflag='Fail'
 
 logprint ("QA2 score: "+QA2_targetflag, logfileout='logs/targetflag.log')
 logprint ("Finished GMRT_pipe_targetflag.py", logfileout='logs/targetflag.log')

@@ -39,6 +39,7 @@
 ######################################
 # Apply deterministic flags
 
+
 logprint ("Starting GMRT_pipe_flagall.py", logfileout='logs/flagall.log')
 time_list=runtiming('flagall', 'start')
 QA2_flagall='Pass'
@@ -49,24 +50,26 @@ outputflagfile = 'flagging_commands1.txt'
 syscommand='rm -rf '+outputflagfile
 os.system(syscommand)
 
-logprint ("Determine fraction of time on-source (may not be correct for pipeline re-runs on datasets already flagged)", logfileout='logs/flagall.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+	logprint ("Determine fraction of time on-source (may not be correct for pipeline re-runs on datasets already flagged)", logfileout='logs/flagall.log')
 
-# report initial statistics
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-myinitialflags = flagdata()
-#clearstat()
-logprint ("Initial flags summary", logfileout='logs/flagall.log')
+	# report initial statistics
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	myinitialflags = flagdata()
+	#clearstat()
+	logprint ("Initial flags summary", logfileout='logs/flagall.log')
 
-start_total = myinitialflags['total']
-start_flagged = myinitialflags['flagged']
-logprint ("Initial flagged fraction = "+str(start_flagged/start_total), logfileout='logs/flagall.log')
+	start_total = myinitialflags['total']
+	start_flagged = myinitialflags['flagged']
+	logprint ("Initial flagged fraction = "+str(start_flagged/start_total), logfileout='logs/flagall.log')
 
 default('flagcmd')
 vis=ms_active
@@ -81,6 +84,7 @@ outfile=outputflagfile
 flagcmd()
 logprint ("ANTENNA_NOT_ON_SOURCE flags carried out", logfileout='logs/flagall.log')
 
+
 # Now shadow flagging
 default('flagdata')
 vis=ms_active
@@ -92,20 +96,20 @@ savepars=False
 flagdata()
 #clearstat()
 
-# report new statistics
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-slewshadowflags=flagdata()
-
-init_on_source_vis = start_total-slewshadowflags['flagged']
-
-logprint ("Initial on-source fraction = "+str(init_on_source_vis/start_total), logfileout='logs/flagall.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+	# report new statistics
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	slewshadowflags=flagdata()
+	init_on_source_vis = start_total-slewshadowflags['flagged']
+	logprint ("Initial on-source fraction = "+str(init_on_source_vis/start_total), logfileout='logs/flagall.log')
 
 # Restore original flags
 
@@ -133,25 +137,27 @@ myzeroflags = flagdata()
 #clearstat()
 logprint ("Zero flags carried out", logfileout='logs/flagall.log')
 
-# Now report statistics
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-myafterzeroflags = flagdata()
-#clearstat()
-logprint ("Zero flags summary", logfileout='logs/flagall.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+	# Now report statistics
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	myafterzeroflags = flagdata()
+	#clearstat()
+	logprint ("Zero flags summary", logfileout='logs/flagall.log')
 
-afterzero_total = myafterzeroflags['total']
-afterzero_flagged = myafterzeroflags['flagged']
-logprint ("After ZERO flagged fraction = "+str(afterzero_flagged/afterzero_total), logfileout='logs/flagall.log')
+	afterzero_total = myafterzeroflags['total']
+	afterzero_flagged = myafterzeroflags['flagged']
+	logprint ("After ZERO flagged fraction = "+str(afterzero_flagged/afterzero_total), logfileout='logs/flagall.log')
 
-zero_flagged = myafterzeroflags['flagged'] - myinitialflags['flagged']
-logprint ("Delta ZERO flagged fraction = "+str(zero_flagged/afterzero_total), logfileout='logs/flagall.log')
+	zero_flagged = myafterzeroflags['flagged'] - myinitialflags['flagged']
+	logprint ("Delta ZERO flagged fraction = "+str(zero_flagged/afterzero_total), logfileout='logs/flagall.log')
 
 # Now shadow flagging
 default('flagdata')
@@ -165,25 +171,25 @@ flagdata()
 #clearstat()
 logprint ("Shadow flags carried out", logfileout='logs/flagall.log')
 
-# Now report statistics after shadow
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-myaftershadowflags = flagdata()
-#clearstat()
-logprint ("Shadow flags summary", logfileout='logs/flagall.log')
-
-aftershadow_total = myaftershadowflags['total']
-aftershadow_flagged = myaftershadowflags['flagged']
-logprint ("After SHADOW flagged fraction = "+str(aftershadow_flagged/aftershadow_total), logfileout='logs/flagall.log')
-
-shadow_flagged = myaftershadowflags['flagged'] - myafterzeroflags['flagged']
-logprint ("Delta SHADOW flagged fraction = "+str(shadow_flagged/aftershadow_total), logfileout='logs/flagall.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
+	# Now report statistics after shadow
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	myaftershadowflags = flagdata()
+	#clearstat()
+	logprint ("Shadow flags summary", logfileout='logs/flagall.log')
+	aftershadow_total = myaftershadowflags['total']
+	aftershadow_flagged = myaftershadowflags['flagged']
+	logprint ("After SHADOW flagged fraction = "+str(aftershadow_flagged/aftershadow_total), logfileout='logs/flagall.log')
+	shadow_flagged = myaftershadowflags['flagged'] - myafterzeroflags['flagged']
+	logprint ("Delta SHADOW flagged fraction = "+str(shadow_flagged/aftershadow_total), logfileout='logs/flagall.log')
 
 default('flagcmd')
 vis=ms_active
@@ -404,10 +410,10 @@ if initial_flag == True:
 		        action="apply", flagbackup=True,overwrite=True, writeflags=True)
 # Now extend the flags (80% more means full flag, change if required)
 
-                flagdata(vis=ms_active,mode="extend",spw='',field=str(','.join(myampcals)),datacolumn="DATA",clipzeros=True,
+		flagdata(vis=ms_active,mode="extend",spw='',field=str(','.join(myampcals)),datacolumn="DATA",clipzeros=True,
 		         ntime="scan", extendflags=False, extendpols=True,growtime=80.0, growfreq=80.0,growaround=False,
 		         flagneartime=False, flagnearfreq=False, action="apply", flagbackup=True,overwrite=True, writeflags=True)
-        if mypcals !=[]:
+	if mypcals !=[]:
 		default(flagdata)
 		
 		flagdata(vis=ms_active,mode="tfcrop", datacolumn="DATA", field=str(','.join(mypcals)), ntime="scan",
@@ -434,25 +440,27 @@ if initial_flag == True:
 		        	 flagneartime=False, flagnearfreq=False, action="apply", flagbackup=True,overwrite=True, writeflags=True)
 
 
-# Now report statistics after initial flagging 
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-afterinitflags = flagdata()
-#clearstat()
-logprint ("Initial flags summary", logfileout='logs/flagall.log')
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
 
-afterinit_total = afterinitflags['total']
-afterinit_flagged = afterinitflags['flagged']
-logprint ("After initial flagged fraction = "+str(afterinit_flagged/afterinit_total), logfileout='logs/flagall.log')
+	# Now report statistics after initial flagging 
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	afterinitflags = flagdata()
+	#clearstat()
+	logprint ("Initial flags summary", logfileout='logs/flagall.log')
+	afterinit_total = afterinitflags['total']
+	afterinit_flagged = afterinitflags['flagged']
+	logprint ("After initial flagged fraction = "+str(afterinit_flagged/afterinit_total), logfileout='logs/flagall.log')
+	initial_flagged = afterinitflags['flagged'] - myaftershadowflags['flagged']
+	logprint ("Delta initial flagged fraction = "+str(initial_flagged/afterinit_total), logfileout='logs/flagall.log')
 
-initial_flagged = afterinitflags['flagged'] - myaftershadowflags['flagged']
-logprint ("Delta initial flagged fraction = "+str(initial_flagged/afterinit_total), logfileout='logs/flagall.log')
 ################################################################################################
 
 
@@ -473,23 +481,27 @@ flagmanager()
 logprint ("Flag column saved to "+versionname, logfileout='logs/flagall.log')
 
 
-# report new statistics
-default('flagdata')
-vis=ms_active
-mode='summary'
-spwchan=True
-spwcorr=True
-basecnt=True
-action='calculate'
-savepars=False
-all_flags = flagdata()
 
-frac_flagged_on_source1 = 1.0-((start_total-all_flags['flagged'])/init_on_source_vis)
+if not Pipeline_Fast:
+	# By Sarvesh (29 April 2023)
 
-logprint ("Fraction of on-source data flagged = "+str(frac_flagged_on_source1), logfileout='logs/flagall.log')
+	# report new statistics
+	default('flagdata')
+	vis=ms_active
+	mode='summary'
+	spwchan=True
+	spwcorr=True
+	basecnt=True
+	action='calculate'
+	savepars=False
+	all_flags = flagdata()
 
-if (frac_flagged_on_source1 >= 0.3):
-    QA2_flagall='Fail'
+	frac_flagged_on_source1 = 1.0-((start_total-all_flags['flagged'])/init_on_source_vis)
+
+	logprint ("Fraction of on-source data flagged = "+str(frac_flagged_on_source1), logfileout='logs/flagall.log')
+
+	if (frac_flagged_on_source1 >= 0.3):
+		QA2_flagall='Fail'
 
 logprint ("Finished GMRT_pipe_flagall.py", logfileout='logs/flagall.log')
 logprint ("QA2 score: "+QA2_flagall, logfileout='logs/flagall.log')
