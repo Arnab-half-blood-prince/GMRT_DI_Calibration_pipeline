@@ -65,4 +65,4 @@ Contact: mangla.sarvesh@gmail.com
 # Developer 
 Arnab Chakraborty (arnab.phy.personal@gmail.com) -- post-doc at McGill University.
 
-Sarvesh Mangala (mangla.sarvesh@gmail.com) -- PhD at IIT Indore.
+Sarvesh Mangala (mangla.sarvesh@gmail.com) -- post-doc at LMU, Germany.
