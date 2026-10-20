@@ -1,1 +1,1 @@
-This contains a python file, which I use to run selfcal (phase only)
+This contains a python file, which I use to run selfcal (phase only), a dd-cal using cubical and then after peeling, a py file to execute - uvsub -> split -> uvcontsub -> mstransform(BARY) -> dirty tclean cube
